@@ -3,11 +3,12 @@ import { ItemService } from './item.service';
 import { ApiResponse, Item } from './item.model'; // Import the interfaces
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
+import { StringToBooleanPipe } from '../pipes/string-to-boolean.pipe';
 
 @Component({
   selector: 'app-shop',
   standalone: true, // Use standalone component (Angular 14+)
-  imports: [CommonModule, FormsModule], // Import FormsModule for ngModel
+  imports: [CommonModule, FormsModule, StringToBooleanPipe], // Import FormsModule for ngModel
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss']
 })

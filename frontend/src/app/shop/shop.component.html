@@ -1,5 +1,6 @@
 <div class="container">
 
+    <!-- Error Message -->
     <div *ngIf="error" class="alert alert-danger">
         {{ error }}
     </div>
@@ -20,6 +21,7 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
+    <!-- Items Table -->
     <div *ngIf="items">
         <h2>Items List</h2>
         <table class="table table-bordered table-striped">
@@ -34,14 +36,13 @@
                 <tr *ngFor="let item of items">
                     <td>{{ item.id }}</td>
                     <td>{{ item.title }}</td>
-                    <td *ngFor="let key of featureKeys">{{ item.name[key] ?? 'N/A' }}</td>
+                    <!-- Fixed syntax for featureKeys -->
+                    <td *ngFor="let key of featureKeys">
+                        {{ item.name[key] | stringToBoolean }}
+                    </td>
                 </tr>
             </tbody>
         </table>
-    </div>
-
-    <div *ngIf="!items && !error" class="alert alert-info">
-        <p>Loading items...</p>
     </div>
 
 </div>
