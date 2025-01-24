@@ -1,0 +1,47 @@
+<div class="container">
+
+    <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+    </div>
+
+    <!-- Bootstrap Form -->
+    <form (ngSubmit)="onSubmit()" class="mb-3">
+        <div class="form-group">
+            <label for="inputField">Input Field</label>
+            <input type="text" class="form-control" id="inputField" [(ngModel)]="inputValue" name="inputValue"
+                placeholder="Enter value">
+        </div>
+        <div class="form-group">
+            <label for="featureSelect">Select Feature</label>
+            <select class="form-control" id="featureSelect" [(ngModel)]="selectedFeature" name="selectedFeature">
+                <option *ngFor="let key of featureKeys" [value]="key">{{ key }}</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div *ngIf="items">
+        <h2>Items List</h2>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>Title</th>
+                    <th *ngFor="let key of featureKeys">{{ key }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.title }}</td>
+                    <td *ngFor="let key of featureKeys">{{ item.name[key] ?? 'N/A' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="!items && !error" class="alert alert-info">
+        <p>Loading items...</p>
+    </div>
+
+</div>
