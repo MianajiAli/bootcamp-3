@@ -1,1 +1,52 @@
-<p>sendmessage works!</p>
+<div class="container py-4">
+    <!-- Header Section -->
+    <header class="text-center mb-5">
+        <h1 class="display-4">Telegram Media Sender</h1>
+        <p class="text-muted">Send messages and media files directly to Telegram</p>
+    </header>
+
+    <!-- Input for Channel ID -->
+    <div class="mb-4">
+        <label for="channelId" class="form-label">Channel ID</label>
+        <input type="text" id="channelId" [(ngModel)]="channelId" class="form-control"
+            placeholder="Enter Telegram channel ID" />
+    </div>
+
+    <!-- Input for Message Text -->
+    <div class="mb-4">
+        <label for="messageText" class="form-label">Message Text</label>
+        <textarea id="messageText" [(ngModel)]="messageText" class="form-control" rows="3"
+            placeholder="Enter your message"></textarea>
+    </div>
+
+    <!-- File Upload -->
+    <div class="mb-4">
+        <label for="fileUpload" class="form-label">Select Files</label>
+        <input type="file" id="fileUpload" multiple (change)="onFileSelect($event)" class="form-control" />
+        <small class="text-muted">You can upload images, videos, audio, or documents.</small>
+    </div>
+
+    <!-- Preview Selected Files -->
+    <div class="mb-4">
+        <h5>Selected Files:</h5>
+        <ul *ngIf="selectedFiles.length > 0">
+            <li *ngFor="let file of selectedFiles">{{ file.name }} ({{ file.type }})</li>
+        </ul>
+        <p *ngIf="selectedFiles.length === 0" class="text-muted">No files selected yet.</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex gap-2">
+        <button class="btn btn-primary" (click)="sendText()">Send Text</button>
+        <button class="btn btn-success" [disabled]="selectedFiles.length === 0" (click)="sendFiles()">
+            Send Files
+        </button>
+        <button class="btn btn-secondary" (click)="resetInputs()">Reset</button>
+    </div>
+
+    <!-- Feedback Messages -->
+    <div class="mt-4">
+        <p class="text-success" *ngIf="responseText">{{ responseText }}</p>
+        <p class="text-danger" *ngIf="uploadError">{{ uploadError }}</p>
+    </div>
+</div>
